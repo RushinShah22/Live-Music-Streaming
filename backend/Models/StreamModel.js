@@ -15,7 +15,15 @@ const StreamSchema = new mongoose.Schema({
     },
     creator: {
         type: Boolean,
+    },
+    creatorId: {
+        type: mongoose.ObjectId
+    },
+    isLive: {
+        type: Boolean,
     }
 })
 
-module.exports = StreamSchema
+const Stream = mongoose.model('Stream', StreamSchema);
+
+module.exports = Stream

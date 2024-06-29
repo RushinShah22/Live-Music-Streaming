@@ -7,9 +7,9 @@ module.exports.registerUser = async (req, res) => {
         console.log("Yess");
         const userDetails = await User.create(req.body);
 
-        const token = jwt.sign({ userId: userDetails._id}, process.env.SECRETJWT);
+        const token = jwt.sign({ userId: userDetails._id, isSigned: userDetails.isSigned}, process.env.SECRETJWT);
         res.cookie("jwt",  token, {
-            httpOnly: true
+
         })
         res.status(201).json({
             status: "success",
@@ -41,6 +41,7 @@ module.exports.verifyUser = async (req, res) => {
                 status: "fail",
                 message: "User Not Found!!!"
             })
+            return;
         }
         const passwordMatch = await bcrypt.compare(req.body.password, user.password);
         if(!passwordMatch){
@@ -48,13 +49,12 @@ module.exports.verifyUser = async (req, res) => {
                 status: "fail",
                 message: "User Password wrong!!!"
             })
+            return
         }
 
-        const token = jwt.sign({ userId: user._id}, process.env.SECRETJWT);
+        const token = jwt.sign({ userId: user._id, isSinger: user.isSinger}, process.env.SECRETJWT);
 
-        res.cookie("jwt",  token, {
-            httpOnly: true
-        })
+        res.cookie("jwt",  token)
         res.status(200).json({
             status: "success",
             message: "User Logged In."
@@ -70,3 +70,23 @@ module.exports.verifyUser = async (req, res) => {
     
 }
 
+
+module.exports.isLoggedIn = async (req, res, next) => {
+    try{
+
+        if(!req.cookies.jwt || jwt.verify(req.cookies.jwt, process.env.SECRETJWT)){
+            throw new Error("User Not logged in!!!");
+        }
+        const jwt_val = jwt.verify(req.cookies.jwt, process.env.SECRETJWT)
+        req.body.id = jwt_val.userId;
+        next();
+
+
+    }catch(err){
+        console.log(err.message);
+        res.status(401).json({
+            status: "fail",
+            message: err.message
+        })
+    }
+}

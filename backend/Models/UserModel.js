@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const StreamSchema = require("./StreamModel");
 
 const UserSchema = new mongoose.Schema({
     firstName:{
@@ -30,7 +29,7 @@ const UserSchema = new mongoose.Schema({
         required: [true, "A user must have a password."]
     },
     subscribedTo: {
-        type: [mongoose.Schema.ObjectId],
+        type: [mongoose.ObjectId],
         required: function(){return this.isSinger;}
     },
     genres: {
@@ -38,7 +37,7 @@ const UserSchema = new mongoose.Schema({
         required: function(){return this.isSinger;}
     },
     streams: {
-        type: [StreamSchema]
+        type: [mongoose.ObjectId]
     }
 
 });
