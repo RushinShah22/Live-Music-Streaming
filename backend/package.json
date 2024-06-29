@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "This is the backend for Live music streaming platform.",
+  "main": "server.js",
+  "scripts": {
+    "test": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RushinShah22/Live-Music-Streaming.git"
+  },
+  "author": "Rushin Shah, Rushi Jhala, Kathan Patel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RushinShah22/Live-Music-Streaming/issues"
+  },
+  "homepage": "https://github.com/RushinShah22/Live-Music-Streaming#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.4"
+  }
+}

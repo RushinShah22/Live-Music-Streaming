@@ -1,0 +1,24 @@
+# node_modules directory
+node_modules/
+
+# build directory
+build/
+
+# coverage directory
+coverage/
+
+# test directory
+test/
+
+# .env file
+.env
+
+
+# .DS_Store files
+.DS_Store
+
+# IDE specific files
+.idea/
+.vscode/
+
+# Any other files or directories you want to ignore
